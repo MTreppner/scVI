@@ -10,9 +10,12 @@ from torch.nn import ModuleList
 from scvi.models.utils import one_hot
 
 
-def reparameterize_gaussian(mu, var):
-    return Normal(mu, var.sqrt()).rsample()
+#def reparameterize_gaussian(mu, var):
+#    return Normal(mu, var.sqrt()).rsample()
 
+# Do not take sqrt() because it returns an error
+def reparameterize_gaussian(mu, var):
+    return Normal(mu, var).rsample()
 
 class FCLayers(nn.Module):
     r"""A helper class to build fully-connected layers for a neural network.

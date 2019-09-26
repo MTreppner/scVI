@@ -1,6 +1,7 @@
 import collections
 from typing import Iterable, List
 
+import numpy as np
 import torch
 from torch import nn as nn
 from torch.distributions import Normal

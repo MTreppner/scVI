@@ -197,15 +197,15 @@ class VAE(nn.Module):
         # Sampling
         qz_m, qz_v, z = self.z_encoder(x_, y)
         # Set qz_m and qz_v to zero in order to sample from standard normal distribution
-        print(qz_m)
-        print(qz_v)
-        print(z)
+        # qz_m is the output of the mean encoder
+        # qz_v is the output of the var encoder
+        # z is the latent variable
         ql_m, ql_v, library = self.l_encoder(x_)
 
         if n_samples > 1:
             qz_m = qz_m.unsqueeze(0).expand((n_samples, qz_m.size(0), qz_m.size(1)))
             qz_v = qz_v.unsqueeze(0).expand((n_samples, qz_v.size(0), qz_v.size(1)))
-            #z = Normal(qz_m, qz_v.sqrt()).sample()
+            z = Normal(qz_m, qz_v.sqrt()).sample()
             print("TEST")
             ql_m = ql_m.unsqueeze(0).expand((n_samples, ql_m.size(0), ql_m.size(1)))
             ql_v = ql_v.unsqueeze(0).expand((n_samples, ql_v.size(0), ql_v.size(1)))

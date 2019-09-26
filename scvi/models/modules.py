@@ -172,6 +172,9 @@ class Encoder(nn.Module):
         q = self.encoder(x, *cat_list)
         q_m = self.mean_encoder(q)
         q_v = torch.exp(self.var_encoder(q)) + 1e-4
+        # Sample from N(0,1) instead of N(q_m,q_v)
+        q_m = np.zeros([np.size(q_m,0), np.size(q_m,1)])
+        q_v = np.ones([np.size(q_v,0), np.size(q_v,1)])
         latent = reparameterize_gaussian(q_m, q_v)
         return q_m, q_v, latent
 

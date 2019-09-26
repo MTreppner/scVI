@@ -196,6 +196,8 @@ class VAE(nn.Module):
 
         # Sampling
         qz_m, qz_v, z = self.z_encoder(x_, y)
+        # Set qz_m and qz_v to zero in order to sample from standard normal distribution
+        qz_m, qz_v, z = 0
         ql_m, ql_v, library = self.l_encoder(x_)
 
         if n_samples > 1:

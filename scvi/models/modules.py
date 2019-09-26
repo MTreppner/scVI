@@ -10,12 +10,12 @@ from torch.nn import ModuleList
 from scvi.models.utils import one_hot
 
 
-#def reparameterize_gaussian(mu, var):
-#    return Normal(mu, var.sqrt()).rsample()
+def reparameterize_gaussian(mu, var):
+    return Normal(mu, var.sqrt()).rsample()
 
 # Do not take sqrt() because it returns an error
-def reparameterize_gaussian(mu, var):
-    return Normal(mu, var).rsample()
+#def reparameterize_gaussian(mu, var):
+#    return Normal(mu, var).rsample()
 
 class FCLayers(nn.Module):
     r"""A helper class to build fully-connected layers for a neural network.
@@ -177,8 +177,8 @@ class Encoder(nn.Module):
         q_m = self.mean_encoder(q)
         q_v = torch.exp(self.var_encoder(q)) + 1e-4
         # Sample from N(0,1) instead of N(q_m,q_v)
-        q_m = torch.zeros(q_m.size())
-        q_m = torch.ones(q_v.size())
+        #q_m = torch.zeros(q_m.size())
+        #q_v = torch.ones(q_v.size())
         latent = reparameterize_gaussian(q_m, q_v)
         return q_m, q_v, latent
 

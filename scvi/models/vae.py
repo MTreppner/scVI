@@ -200,11 +200,15 @@ class VAE(nn.Module):
         # qz_m is the output of the mean encoder
         # qz_v is the output of the var encoder
         # z is the latent variable
+        q_m = torch.zeros(q_m.size())
+        q_v = torch.ones(q_v.size())
         ql_m, ql_v, library = self.l_encoder(x_)
 
         if n_samples > 1:
             qz_m = qz_m.unsqueeze(0).expand((n_samples, qz_m.size(0), qz_m.size(1)))
             qz_v = qz_v.unsqueeze(0).expand((n_samples, qz_v.size(0), qz_v.size(1)))
+            q_m = torch.zeros(q_m.size())
+            q_v = torch.ones(q_v.size())
             z = Normal(qz_m, qz_v.sqrt()).sample()
             print("TEST")
             ql_m = ql_m.unsqueeze(0).expand((n_samples, ql_m.size(0), ql_m.size(1)))

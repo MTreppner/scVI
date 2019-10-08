@@ -37,6 +37,8 @@ class Trainer:
             should be specified if any of them is. Default: ``None``.
         :show_progbar: If False, disables progress bar.
         :seed: Random seed for train/test/validate split
+        :trainidxs: Importet train split indices.
+        :testidxs: Importet test split indices.
     """
     default_metrics_to_monitor = []
 
@@ -97,10 +99,10 @@ class Trainer:
         self.best_epoch = self.epoch
 
         if trainidxs is not None:
-            self.trainidxs = set(trainidxs)
+            self.trainidxs = trainidxs
         
         if testidxs is not None:
-            self.testidxs = set(testidxs)
+            self.testidxs = testidxs
         
         self.show_progbar = show_progbar
 
@@ -264,7 +266,7 @@ class Trainer:
         train_size=0.7,
         test_size=None,
         type_class=Posterior,
-        trainidxs=None,
+        trainidxs=[1],
         testidxs=None,
     ):
         """Creates posteriors ``train_set``, ``test_set``, ``validation_set``.

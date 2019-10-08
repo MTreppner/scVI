@@ -275,6 +275,8 @@ class Trainer:
             if gene_dataset is None and hasattr(self, "model")
             else gene_dataset
         )
+        self.trainidxs = trainidxs
+        self.testidxs = testidxs
         #n = len(gene_dataset)
         #n_train, n_test = _validate_shuffle_split(n, test_size, train_size)
         #random_state = np.random.RandomState(seed=self.seed)

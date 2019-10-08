@@ -38,8 +38,10 @@ class UnsupervisedTrainer(Trainer):
         self,
         model,
         gene_dataset,
-        train_size=0.8,
+        train_size=0.7,
         test_size=None,
+        trainidxs=None,
+        testidxs=None,
         n_epochs_kl_warmup=400,
         **kwargs
     ):
@@ -47,7 +49,7 @@ class UnsupervisedTrainer(Trainer):
         self.n_epochs_kl_warmup = n_epochs_kl_warmup
         if type(self) is UnsupervisedTrainer:
             self.train_set, self.test_set, self.validation_set = self.train_test_validation(
-                model, gene_dataset, train_size, test_size
+                model, gene_dataset, train_size, test_size, trainidxs, testidxs
             )
             self.train_set.to_monitor = ["elbo"]
             self.test_set.to_monitor = ["elbo"]

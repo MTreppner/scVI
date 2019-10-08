@@ -253,9 +253,11 @@ class Trainer:
         self,
         model=None,
         gene_dataset=None,
-        train_size=0.1,
+        train_size=0.7,
         test_size=None,
         type_class=Posterior,
+        trainidxs=None,
+        testidxs=None,
     ):
         """Creates posteriors ``train_set``, ``test_set``, ``validation_set``.
             If ``train_size + test_size < 1`` then ``validation_set`` is non-empty.
@@ -269,23 +271,27 @@ class Trainer:
             if gene_dataset is None and hasattr(self, "model")
             else gene_dataset
         )
-        n = len(gene_dataset)
-        n_train, n_test = _validate_shuffle_split(n, test_size, train_size)
-        random_state = np.random.RandomState(seed=self.seed)
-        permutation = random_state.permutation(n)
-        indices_test = permutation[:n_test]
-        indices_train = permutation[n_test : (n_test + n_train)]
-        indices_validation = permutation[(n_test + n_train) :]
+        #n = len(gene_dataset)
+        #n_train, n_test = _validate_shuffle_split(n, test_size, train_size)
+        #random_state = np.random.RandomState(seed=self.seed)
+        #permutation = random_state.permutation(n)
+        #indices_test = permutation[:n_test]
+        #indices_train = permutation[n_test : (n_test + n_train)]
+        #indices_validation = permutation[(n_test + n_train) :]
 
+        # Use train/test split from BoltzmannMachines Package for comparability 
+
+        print(trainidxs)
+        print(testidxs)
         return (
             self.create_posterior(
-                model, gene_dataset, indices=indices_train, type_class=type_class
+                model, gene_dataset, indices=trainidxs, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=indices_test, type_class=type_class
+                model, gene_dataset, indices=None, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=indices_validation, type_class=type_class
+                model, gene_dataset, indices=testidxs, type_class=type_class
             ),
         )
 

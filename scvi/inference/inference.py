@@ -37,11 +37,11 @@ class UnsupervisedTrainer(Trainer):
     def __init__(
         self,
         model,
+        trainidxs,
+        testidxs,
         gene_dataset,
         train_size=0.7,
         test_size=None,
-        trainidxs=None,
-        testidxs=None,
         n_epochs_kl_warmup=400,
         **kwargs
     ):

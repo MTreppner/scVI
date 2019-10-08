@@ -53,6 +53,7 @@ class Trainer:
         data_loader_kwargs=None,
         show_progbar=True,
         test_size=None,
+        trainidxs=None,
         testidxs=None,
         seed=0,
     ):

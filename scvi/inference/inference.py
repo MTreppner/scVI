@@ -40,6 +40,7 @@ class UnsupervisedTrainer(Trainer):
         gene_dataset,
         train_size=0.7,
         test_size=None,
+        trainidxs=None,
         testidxs=None,
         n_epochs_kl_warmup=400,
         **kwargs

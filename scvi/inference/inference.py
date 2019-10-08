@@ -56,6 +56,7 @@ class UnsupervisedTrainer(Trainer):
             self.train_set.to_monitor = ["elbo"]
             self.test_set.to_monitor = ["elbo"]
             self.validation_set.to_monitor = ["elbo"]
+            print("TEST")
 
     @property
     def posteriors_loop(self):

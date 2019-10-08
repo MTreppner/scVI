@@ -97,6 +97,8 @@ class Trainer:
         self.best_state_dict = self.model.state_dict()
         self.best_epoch = self.epoch
 
+        self.trainidxs = trainidxs
+        self.testidxs = testidxs
         self.show_progbar = show_progbar
 
     @torch.no_grad()

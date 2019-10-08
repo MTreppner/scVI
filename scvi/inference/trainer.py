@@ -96,8 +96,12 @@ class Trainer:
         self.best_state_dict = self.model.state_dict()
         self.best_epoch = self.epoch
 
-        self.trainidxs = trainidxs
-        self.testidxs = testidxs
+        if trainidxs is not None:
+            self.trainidxs = set(trainidxs)
+        
+        if testidxs is not None:
+            self.testidxs = set(testidxs)
+        
         self.show_progbar = show_progbar
 
     @torch.no_grad()

@@ -48,8 +48,8 @@ class UnsupervisedTrainer(Trainer):
     ):
         super().__init__(model, gene_dataset, **kwargs)
         self.n_epochs_kl_warmup = n_epochs_kl_warmup
-        self.trainidxs = trainidxs
-        self.testidxs = testidxs
+        #self.trainidxs = trainidxs
+        #self.testidxs = testidxs
         if type(self) is UnsupervisedTrainer:
             self.train_set, self.test_set, self.validation_set = self.train_test_validation(
                 model, gene_dataset, train_size, test_size, trainidxs, testidxs
@@ -57,7 +57,6 @@ class UnsupervisedTrainer(Trainer):
             self.train_set.to_monitor = ["elbo"]
             self.test_set.to_monitor = ["elbo"]
             self.validation_set.to_monitor = ["elbo"]
-            print("TEST")
 
     @property
     def posteriors_loop(self):

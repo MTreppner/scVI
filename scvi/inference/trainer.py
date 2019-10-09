@@ -98,8 +98,8 @@ class Trainer:
         self.best_state_dict = self.model.state_dict()
         self.best_epoch = self.epoch
 
-        self.trainidxs = trainidxs
-        self.testidxs = testidxs
+        #self.trainidxs = trainidxs
+        #self.testidxs = testidxs
         
         self.show_progbar = show_progbar
 
@@ -262,9 +262,9 @@ class Trainer:
         gene_dataset=None,
         train_size=0.7,
         test_size=None,
-        type_class=Posterior,
         trainidxs=None,
         testidxs=None,
+        type_class=Posterior,
     ):
         """Creates posteriors ``train_set``, ``test_set``, ``validation_set``.
             If ``train_size + test_size < 1`` then ``validation_set`` is non-empty.
@@ -278,29 +278,31 @@ class Trainer:
             if gene_dataset is None and hasattr(self, "model")
             else gene_dataset
         )
-        self.trainidxs = trainidxs
-        self.testidxs = testidxs
-        #n = len(gene_dataset)
-        #n_train, n_test = _validate_shuffle_split(n, test_size, train_size)
-        #random_state = np.random.RandomState(seed=self.seed)
-        #permutation = random_state.permutation(n)
+        #self.trainidxs = trainidxs
+        #self.testidxs = testidxs
+        n = len(gene_dataset)
+        n_train, n_test = _validate_shuffle_split(n, test_size, train_size)
+        random_state = np.random.RandomState(seed=self.seed)
+        permutation = random_state.permutation(n)
         #indices_test = permutation[:n_test]
         #indices_train = permutation[n_test : (n_test + n_train)]
-        #indices_validation = permutation[(n_test + n_train) :]
+        indices_validation = permutation[(n_test + n_train) :]
 
+        ### Attention ###
         # Use train/test split from BoltzmannMachines Package for comparability 
-
-        print(trainidxs)
-        #print(testidxs)
+        indices_test = testidxs
+        indices_train = trainidxs
+        
+        indices_validation = np.array([])
         return (
             self.create_posterior(
-                model, gene_dataset, indices=trainidxs, type_class=type_class
+                model, gene_dataset, indices=indices_train, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=testidxs, type_class=type_class
+                model, gene_dataset, indices=indices_test, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=None, type_class=type_class
+                model, gene_dataset, indices=indices_validation, type_class=type_class
             ),
         )
 

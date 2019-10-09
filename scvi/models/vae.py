@@ -203,7 +203,6 @@ class VAE(nn.Module):
         qz_m = torch.zeros(qz_m.size())
         qz_v = torch.ones(qz_v.size())
         ql_m, ql_v, library = self.l_encoder(x_)
-        print("TEST")
 
         if n_samples > 1:
             qz_m = qz_m.unsqueeze(0).expand((n_samples, qz_m.size(0), qz_m.size(1)))
@@ -211,7 +210,7 @@ class VAE(nn.Module):
             qz_m = torch.zeros(qz_m.size())
             qz_v = torch.ones(qz_v.size())
             z = Normal(qz_m, qz_v.sqrt()).sample()
-            print("TEST")
+
             ql_m = ql_m.unsqueeze(0).expand((n_samples, ql_m.size(0), ql_m.size(1)))
             ql_v = ql_v.unsqueeze(0).expand((n_samples, ql_v.size(0), ql_v.size(1)))
             library = Normal(ql_m, ql_v.sqrt()).sample()

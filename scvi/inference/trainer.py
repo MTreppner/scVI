@@ -291,7 +291,7 @@ class Trainer:
         # Use train/test split from BoltzmannMachines Package for comparability 
 
         print(trainidxs)
-        print(testidxs)
+        #print(testidxs)
         return (
             self.create_posterior(
                 model, gene_dataset, indices=trainidxs, type_class=type_class

@@ -297,10 +297,10 @@ class Trainer:
                 model, gene_dataset, indices=trainidxs, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=None, type_class=type_class
+                model, gene_dataset, indices=testidxs, type_class=type_class
             ),
             self.create_posterior(
-                model, gene_dataset, indices=testidxs, type_class=type_class
+                model, gene_dataset, indices=None, type_class=type_class
             ),
         )
 

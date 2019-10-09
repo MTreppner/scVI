@@ -98,11 +98,8 @@ class Trainer:
         self.best_state_dict = self.model.state_dict()
         self.best_epoch = self.epoch
 
-        if trainidxs is not None:
-            self.trainidxs = trainidxs
-        
-        if testidxs is not None:
-            self.testidxs = testidxs
+        self.trainidxs = trainidxs
+        self.testidxs = testidxs
         
         self.show_progbar = show_progbar
 
@@ -266,7 +263,7 @@ class Trainer:
         train_size=0.7,
         test_size=None,
         type_class=Posterior,
-        trainidxs=[1],
+        trainidxs=None,
         testidxs=None,
     ):
         """Creates posteriors ``train_set``, ``test_set``, ``validation_set``.
